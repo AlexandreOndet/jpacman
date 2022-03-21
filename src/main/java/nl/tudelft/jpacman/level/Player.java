@@ -51,7 +51,7 @@ public class Player extends Unit {
         this.lives = 3;
         this.sprites = spriteMap;
         this.deathSprite = deathAnimation;
-        deathSprite.setAnimating(false);
+        deathSprite.setAnimating(true);
     }
 
     /**
@@ -63,9 +63,14 @@ public class Player extends Unit {
         return lives != 0;
     }
 
+    public int getLives() {
+        return lives;
+    }
+
     public void removeLife() {
         this.lives--;
-        if(this.lives == 0){
+        occupy(getOriginalPos());
+        if(this.lives <= 0){
             setAlive(false);
         }
         else {
@@ -85,6 +90,8 @@ public class Player extends Unit {
         if (isAlive) {
             deathSprite.setAnimating(false);
             this.killer = null;
+            Sprite test =getSprite();
+            test=test.split(0,0,test.getWidth(),test.getHeight());
         }
         if (!isAlive) {
             deathSprite.restart();

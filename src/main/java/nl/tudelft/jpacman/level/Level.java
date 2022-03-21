@@ -157,6 +157,7 @@ public class Level {
         }
         players.add(player);
         Square square = startSquares.get(startSquareIndex);
+        player.setOriginalPos(square);
         player.occupy(square);
         startSquareIndex++;
         startSquareIndex %= startSquares.size();

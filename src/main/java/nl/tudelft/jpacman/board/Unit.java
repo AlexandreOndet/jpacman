@@ -19,6 +19,16 @@ public abstract class Unit {
      */
     private Direction direction;
 
+    public Square getOriginalPos() {
+        return originalPos;
+    }
+
+    private Square originalPos;
+
+    public void setOriginalPos(Square originalPos) {
+        this.originalPos = originalPos;
+    }
+
     /**
      * Creates a unit that is facing east.
      */

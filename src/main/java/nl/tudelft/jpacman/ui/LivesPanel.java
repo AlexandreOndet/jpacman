@@ -12,12 +12,12 @@ import nl.tudelft.jpacman.level.Player;
 
 /**
  * A panel consisting of a column for each player, with the numbered players on
- * top and their respective scores underneath.
+ * top and their respective lives underneath.
  *
- * @author Jeroen Roosen 
+ * @author Jeroen Roosen
  *
  */
-public class ScorePanel extends JPanel {
+public class LivesPanel extends JPanel {
 
     /**
      * Default serialisation ID.
@@ -27,18 +27,18 @@ public class ScorePanel extends JPanel {
     /**
      * The map of players and the labels their scores are on.
      */
-    private final Map<Player, JLabel> scoreLabels;
+    private final Map<Player, JLabel> livesLabels;
 
     /**
      * The default way in which the score is shown.
      */
-    public static final ScoreFormatter DEFAULT_SCORE_FORMATTER =
-        (Player player) -> String.format("Score: %3d", player.getScore());
+    public static final LivesFormatter DEFAULT_LIVES_FORMATTER =
+        (Player player) -> String.format("Lives: %3d", player.getLives());
 
     /**
      * The way to format the score information.
      */
-    private ScoreFormatter scoreFormatter = DEFAULT_SCORE_FORMATTER;
+    private LivesFormatter livesFormatter = DEFAULT_LIVES_FORMATTER;
 
     /**
      * Creates a new score panel with a column for each player.
@@ -46,8 +46,7 @@ public class ScorePanel extends JPanel {
      * @param players
      *            The players to display the scores of.
      */
-    /** François : refactored assert players to if statement */
-    public ScorePanel(List<Player> players) {
+    public LivesPanel(List<Player> players) {
         super();
         if( players == null){
             throw new IllegalArgumentException("players is NULL");
@@ -58,11 +57,11 @@ public class ScorePanel extends JPanel {
         for (int i = 1; i <= players.size(); i++) {
             add(new JLabel("Player " + i, JLabel.CENTER));
         }
-        scoreLabels = new LinkedHashMap<>();
+        livesLabels = new LinkedHashMap<>();
         for (Player player : players) {
-            JLabel scoreLabel = new JLabel("0", JLabel.CENTER);
-            scoreLabels.put(player, scoreLabel);
-            add(scoreLabel);
+            JLabel livesLabel = new JLabel("0", JLabel.CENTER);
+            livesLabels.put(player, livesLabel);
+            add(livesLabel);
         }
     }
 
@@ -70,14 +69,11 @@ public class ScorePanel extends JPanel {
      * Refreshes the scores of the players.
      */
     protected void refresh() {
-        for (Map.Entry<Player, JLabel> entry : scoreLabels.entrySet()) {
+        for (Map.Entry<Player, JLabel> entry : livesLabels.entrySet()) {
             Player player = entry.getKey();
-            String score = "";
-            if (!player.isAlive()) {
-                score = "You died. ";
-            }
-            score += scoreFormatter.format(player);
-            entry.getValue().setText(score);
+            String lives = "";
+            lives += livesFormatter.format(player);
+            entry.getValue().setText(lives);
         }
     }
 
@@ -86,7 +82,7 @@ public class ScorePanel extends JPanel {
     /**
      * Provide means to format the score for a given player.
      */
-    public interface ScoreFormatter {
+    public interface LivesFormatter {
 
         /**
          * Format the score of a given player.
@@ -97,15 +93,14 @@ public class ScorePanel extends JPanel {
     }
 
     /**
-     * Let the score panel use a dedicated score formatter.
-     * @param scoreFormatter Score formatter to be used.
+     * Let the lives panel use a dedicated life formatter.
+     * @param livesFormatter lives formatter to be used.
      */
-    /** François : refactored assert scoreFormatter to if statement */
-    public void setScoreFormatter(ScoreFormatter scoreFormatter) {
+    public void setLivesFormatter(LivesFormatter livesFormatter) {
 
-        if( scoreFormatter == null){
-            throw new IllegalArgumentException("scoreFormatter is NULL");
+        if( livesFormatter == null){
+            throw new IllegalArgumentException("livesFormatter is NULL");
         }
-        this.scoreFormatter = scoreFormatter;
+        this.livesFormatter = livesFormatter;
     }
 }

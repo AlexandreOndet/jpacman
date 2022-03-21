@@ -87,4 +87,8 @@ public abstract class Ghost extends Unit {
      */
     /** François: Refactored : removed commented code as the method is abstract (probably legacy code) */
      protected abstract Direction randomMove();
+
+     public void resetPos(){
+         occupy(getOriginalPos());
+     }
 }
