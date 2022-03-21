@@ -60,10 +60,12 @@ class BoardPanel extends JPanel {
         setMinimumSize(size);
         setPreferredSize(size);
     }
-
+    /** François : refactored assert g to if statement */
     @Override
     public void paint(Graphics g) {
-        assert g != null;
+        if( g == null){
+            throw new IllegalArgumentException("g is NULL");
+        }
         render(game.getLevel().getBoard(), g, getSize());
     }
 

@@ -104,8 +104,12 @@ public class PacManSprites extends SpriteStore {
      *            The colour of the ghost.
      * @return The Sprite for the ghost.
      */
+    /** François : refactored assert color to if statement */
     public Map<Direction, Sprite> getGhostSprite(GhostColor color) {
-        assert color != null;
+
+        if( color == null){
+            throw new IllegalArgumentException("color is NULL");
+        }
 
         String resource = "/sprite/ghost_" + color.name().toLowerCase()
             + ".png";

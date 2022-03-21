@@ -27,6 +27,10 @@ class ButtonPanel extends JPanel {
         super();
         assert buttons != null;
         assert parent != null;
+/** François: Refactoring : When only the keys from a map are needed in a loop, iterating the keySet makes sense.
+ * But when both the key and the value are needed, it’s more efficient to iterate the entrySet, which will give access to both the key and value, instead.
+ * However our insight of the project is too low to solve this problem
+ */
 
         for (final String caption : buttons.keySet()) {
             JButton button = new JButton(caption);

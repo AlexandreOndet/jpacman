@@ -86,11 +86,17 @@ public class SpriteStore {
      *            Whether this sprite is a looping animation or not.
      * @return The animated sprite.
      */
+    /** François : refactored assert frames and baseImage to if statement */
+
     public AnimatedSprite createAnimatedSprite(Sprite baseImage, int frames,
                                                int delay, boolean loop) {
-        assert baseImage != null;
-        assert frames > 0;
+        if( baseImage == null){
+            throw new IllegalArgumentException("baseImage is NULL");
+        }
 
+        if( frames < 0){
+            throw new IllegalArgumentException("frames < 0");
+        }
         int frameWidth = baseImage.getWidth() / frames;
 
         Sprite[] animation = new Sprite[frames];

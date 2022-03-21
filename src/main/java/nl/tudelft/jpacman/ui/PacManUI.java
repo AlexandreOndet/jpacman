@@ -65,13 +65,20 @@ public class PacManUI extends JFrame {
      * @param scoreFormatter
      *            The formatter used to display the current score.
      */
+    /** François : refactored assert game, buttons and keyMappings to if statement */
     public PacManUI(final Game game, final Map<String, Action> buttons,
                     final Map<Integer, Action> keyMappings,
                     ScoreFormatter scoreFormatter) {
         super("JPacman");
-        assert game != null;
-        assert buttons != null;
-        assert keyMappings != null;
+        if( game == null){
+            throw new IllegalArgumentException("game is NULL");
+        }
+        if( buttons == null){
+            throw new IllegalArgumentException("buttons is NULL");
+        }
+        if( keyMappings == null){
+            throw new IllegalArgumentException("keyMappings is NULL");
+        }
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 

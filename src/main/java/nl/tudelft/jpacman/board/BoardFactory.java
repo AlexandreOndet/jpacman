@@ -35,8 +35,11 @@ public class BoardFactory {
      *            the square at position x,y.
      * @return A new board, wrapping a grid of connected cells.
      */
+    /** François : refactored assert grid to if statement */
     public Board createBoard(Square[][] grid) {
-        assert grid != null;
+        if( grid == null){
+            throw new IllegalArgumentException("Grid is NULL");
+        }
 
         Board board = new Board(grid);
 

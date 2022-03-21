@@ -24,10 +24,12 @@ class PacKeyListener implements KeyListener {
         assert keyMappings != null;
         this.mappings = keyMappings;
     }
-
+    /** François : refactored assert event to if statement */
     @Override
     public void keyPressed(KeyEvent event) {
-        assert event != null;
+        if( event == null){
+            throw new IllegalArgumentException("event is NULL");
+        }
         Action action = mappings.get(event.getKeyCode());
         if (action != null) {
             action.doAction();

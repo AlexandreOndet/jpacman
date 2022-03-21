@@ -68,6 +68,7 @@ public class CollisionInteractionMap implements CollisionMap {
      * @param handler
      *            The handler that handles the collision.
      */
+
     public <C1 extends Unit, C2 extends Unit> void onCollision(
         Class<C1> collider, Class<C2> collidee, boolean symetric,
         CollisionHandler<C1, C2> handler) {
@@ -87,14 +88,18 @@ public class CollisionInteractionMap implements CollisionMap {
      * @param handler
      *            The handler that handles the collision.
      */
-    private void addHandler(Class<? extends Unit> collider,
-                            Class<? extends Unit> collidee, CollisionHandler<?, ?> handler) {
-        if (!handlers.containsKey(collider)) {
-            handlers.put(collider, new HashMap<>());
+
+    /** François : refactored renamed collider to c1 and collidee to c2
+     * cause: handler can be used symmetrically */
+
+    private void addHandler(Class<? extends Unit> c1,
+                            Class<? extends Unit> c2, CollisionHandler<?, ?> handler) {
+        if (handlers.containsKey(c1)) {
+            handlers.put(c1, new HashMap<>());
         }
 
-        Map<Class<? extends Unit>, CollisionHandler<?, ?>> map = handlers.get(collider);
-        map.put(collidee, handler);
+        Map<Class<? extends Unit>, CollisionHandler<?, ?>> map = handlers.get(c1);
+        map.put(c2, handler);
     }
 
     /**

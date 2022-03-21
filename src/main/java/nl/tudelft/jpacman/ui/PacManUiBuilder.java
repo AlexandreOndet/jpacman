@@ -60,9 +60,11 @@ public class PacManUiBuilder {
      *            The game to build the UI for.
      * @return A new Pac-Man UI with the set keys and buttons.
      */
+    /** François : refactored assert game to if statement */
     public PacManUI build(final Game game) {
-        assert game != null;
-
+        if( game == null){
+            throw new IllegalArgumentException("game is NULL");
+        }
         if (defaultButtons) {
             addStartButton(game);
             addStopButton(game);
@@ -105,10 +107,15 @@ public class PacManUiBuilder {
      *            The action to perform when the key is pressed.
      * @return The builder.
      */
-    public PacManUiBuilder addKey(Integer keyCode, Action action) {
-        assert keyCode != null;
-        assert action != null;
 
+    /** François : refactored assert keyCode and action to if statement */
+    public PacManUiBuilder addKey(Integer keyCode, Action action) {
+        if( keyCode == null){
+            throw new IllegalArgumentException("keyCode is NULL");
+        }
+        if( action == null){
+            throw new IllegalArgumentException("action is NULL");
+        }
         keyMappings.put(keyCode, action);
         return this;
     }
@@ -122,10 +129,19 @@ public class PacManUiBuilder {
      *            The action to execute when the button is clicked.
      * @return The builder.
      */
+
+    /** François : refactored assert caption, !caption.isEmpty() and action to if statement */
     public PacManUiBuilder addButton(String caption, Action action) {
-        assert caption != null;
-        assert !caption.isEmpty();
-        assert action != null;
+        if( caption == null){
+            throw new IllegalArgumentException("caption is NULL");
+        }
+
+        if( caption.isEmpty()){
+            throw new IllegalArgumentException("caption.isEmpty ERROR");
+        }
+        if( action == null){
+            throw new IllegalArgumentException("action is NULL");
+        }
 
         buttons.put(caption, action);
         return this;

@@ -46,9 +46,12 @@ public class ScorePanel extends JPanel {
      * @param players
      *            The players to display the scores of.
      */
+    /** François : refactored assert players to if statement */
     public ScorePanel(List<Player> players) {
         super();
-        assert players != null;
+        if( players == null){
+            throw new IllegalArgumentException("players is NULL");
+        }
 
         setLayout(new GridLayout(2, players.size()));
 
@@ -95,8 +98,12 @@ public class ScorePanel extends JPanel {
      * Let the score panel use a dedicated score formatter.
      * @param scoreFormatter Score formatter to be used.
      */
+    /** François : refactored assert scoreFormatter to if statement */
     public void setScoreFormatter(ScoreFormatter scoreFormatter) {
-        assert scoreFormatter != null;
+
+        if( scoreFormatter == null){
+            throw new IllegalArgumentException("scoreFormatter is NULL");
+        }
         this.scoreFormatter = scoreFormatter;
     }
 }

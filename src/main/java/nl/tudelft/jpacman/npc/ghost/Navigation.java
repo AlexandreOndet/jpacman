@@ -57,8 +57,9 @@ public final class Navigation {
             visited.add(square);
             addNewTargets(traveller, targets, visited, node, square);
         }
-        return null;
+        return new ArrayList<>();
     }
+    /** François : refactored return null to new ArrayList<>() */
 
     private static void addNewTargets(Unit traveller, List<Node> targets,
                                       Set<Square> visited, Node node, Square square) {
@@ -212,12 +213,8 @@ public final class Navigation {
         }
 
         /**
-         * @return The parent node, or <code>null</code> if this node is a root
-         *         node.
+         François : refactored by removing not used method getParent
          */
-        private Node getParent() {
-            return parent;
-        }
 
         /**
          * Returns the list of values from the root of the tree to this node.

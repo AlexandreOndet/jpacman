@@ -45,10 +45,10 @@ public class SinglePlayerGame extends Game {
         this.level = level;
         this.level.registerPlayer(player);
     }
-
+    /** François : refactored renamed to java.util.list.of  */
     @Override
     public List<Player> getPlayers() {
-        return ImmutableList.of(player);
+        return java.util.List.of(player);
     }
 
     @Override

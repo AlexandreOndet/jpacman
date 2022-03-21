@@ -70,9 +70,11 @@ public abstract class Unit {
      * @param target
      *            The square to occupy.
      */
+    /** François : refactored assert target to if statement */
     public void occupy(Square target) {
-        assert target != null;
-
+        if( target == null){
+            throw new IllegalArgumentException("Target is NULL");
+        }
         if (square != null) {
             square.remove(this);
         }

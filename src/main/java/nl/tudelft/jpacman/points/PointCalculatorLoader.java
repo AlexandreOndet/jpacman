@@ -24,7 +24,7 @@ public class PointCalculatorLoader {
                 clazz = loadClassFromFile();
             }
 
-            return (PointCalculator) clazz.newInstance();
+            return (PointCalculator) clazz.newInstance(); /* François: Warning deprecated ignored*/
         } catch (Exception e) {
             throw new RuntimeException("Could not dynamically load the points calculator.", e);
         }

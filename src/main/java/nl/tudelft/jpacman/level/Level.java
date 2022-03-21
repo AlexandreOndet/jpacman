@@ -90,11 +90,19 @@ public class Level {
      * @param collisionMap
      *            The collection of collisions that should be handled.
      */
+
+    /** François : refactored assert to if statement for board, ghosts and startPositions */
     public Level(Board board, List<Ghost> ghosts, List<Square> startPositions,
                  CollisionMap collisionMap) {
-        assert board != null;
-        assert ghosts != null;
-        assert startPositions != null;
+        if( board == null){
+            throw new IllegalArgumentException("board is NULL");
+        }
+        if( ghosts== null){
+            throw new IllegalArgumentException("ghosts is NULL");
+        }
+        if( startPositions == null){
+            throw new IllegalArgumentException("startPositions is NULL");
+        }
 
         this.board = board;
         this.inProgress = false;
@@ -137,8 +145,11 @@ public class Level {
      * @param player
      *            The player to register.
      */
+    /** François : refactored assert to if statement for player */
     public void registerPlayer(Player player) {
-        assert player != null;
+        if( player == null){
+            throw new IllegalArgumentException("player is NULL");
+        }
         assert !startSquares.isEmpty();
 
         if (players.contains(player)) {
@@ -169,10 +180,17 @@ public class Level {
      * @param direction
      *            The direction to move the unit in.
      */
+    /** François : refactored assert to if statement for unit, direction and unit.hasSquare */
     public void move(Unit unit, Direction direction) {
-        assert unit != null;
-        assert direction != null;
-        assert unit.hasSquare();
+        if( unit == null){
+            throw new IllegalArgumentException("unit is NULL");
+        }
+        if( direction == null){
+            throw new IllegalArgumentException("direction is NULL");
+        }
+        if( !unit.hasSquare()){
+            throw new IllegalArgumentException("unit.hasSquare() ERROR");
+        }
 
         if (!isInProgress()) {
             return;
@@ -296,12 +314,13 @@ public class Level {
      *
      * @return The amount of pellets remaining on the board.
      */
+    /** François : refactored renamed board to currentboard  */
     public int remainingPellets() {
-        Board board = getBoard();
+        Board currentboard = getBoard();
         int pellets = 0;
-        for (int x = 0; x < board.getWidth(); x++) {
-            for (int y = 0; y < board.getHeight(); y++) {
-                for (Unit unit : board.squareAt(x, y).getOccupants()) {
+        for (int x = 0; x < currentboard.getWidth(); x++) {
+            for (int y = 0; y < currentboard.getHeight(); y++) {
+                for (Unit unit : currentboard.squareAt(x, y).getOccupants()) {
                     if (unit instanceof Pellet) {
                         pellets++;
                     }

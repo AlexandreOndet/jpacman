@@ -72,9 +72,13 @@ public class AnimatedSprite implements Sprite {
      * @param isAnimating
      *            Whether or not this sprite is animating from the start.
      */
-    public AnimatedSprite(Sprite[] frames, int delay, boolean loop, boolean isAnimating) {
-        assert frames.length > 0;
 
+    /** François : refactored assert frames.length to if statement */
+    public AnimatedSprite(Sprite[] frames, int delay, boolean loop, boolean isAnimating) {
+
+        if( frames.length < 0){
+            throw new IllegalArgumentException("frames.length < 0");
+        }
         this.animationFrames = frames.clone();
         this.animationDelay = delay;
         this.looping = loop;
