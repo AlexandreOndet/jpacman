@@ -18,6 +18,10 @@ public class Player extends Unit {
      * The amount of points accumulated by this player.
      */
     private int score;
+    /**
+     * The amount of lives left for this player.
+     */
+    private int lives;
 
     /**
      * The animations for every direction.
@@ -28,11 +32,6 @@ public class Player extends Unit {
      * The animation that is to be played when Pac-Man dies.
      */
     private final AnimatedSprite deathSprite;
-
-    /**
-     * <code>true</code> iff this player is alive.
-     */
-    private boolean alive;
 
     /**
      * {@link Unit} iff this player died by collision, <code>null</code> otherwise.
@@ -49,7 +48,7 @@ public class Player extends Unit {
      */
     protected Player(Map<Direction, Sprite> spriteMap, AnimatedSprite deathAnimation) {
         this.score = 0;
-        this.alive = true;
+        this.lives = 3;
         this.sprites = spriteMap;
         this.deathSprite = deathAnimation;
         deathSprite.setAnimating(false);
@@ -61,7 +60,17 @@ public class Player extends Unit {
      * @return <code>true</code> iff the player is alive.
      */
     public boolean isAlive() {
-        return alive;
+        return lives != 0;
+    }
+
+    public void removeLife() {
+        this.lives--;
+        if(this.lives == 0){
+            setAlive(false);
+        }
+        else {
+            setAlive(true);
+        }
     }
 
     /**
@@ -70,7 +79,7 @@ public class Player extends Unit {
      * If the player comes back alive, the {@link killer} will be reset.
      *
      * @param isAlive
-     *            <code>true</code> iff this player is alive.
+     *            <code>true</code> if this player is alive.
      */
     public void setAlive(boolean isAlive) {
         if (isAlive) {
@@ -80,7 +89,6 @@ public class Player extends Unit {
         if (!isAlive) {
             deathSprite.restart();
         }
-        this.alive = isAlive;
     }
 
     /**

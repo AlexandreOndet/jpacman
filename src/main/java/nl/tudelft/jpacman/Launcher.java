@@ -28,7 +28,6 @@ public class Launcher {
     private static final PacManSprites SPRITE_STORE = new PacManSprites();
 
     public static final String DEFAULT_MAP = "/board.txt";
-    private String levelMap = DEFAULT_MAP;
 
     private PacManUI pacManUI;
     private Game game;
@@ -47,31 +46,18 @@ public class Launcher {
      * @return The name of the map file.
      */
     protected String getLevelMap() {
-        return levelMap;
+        return DEFAULT_MAP;
     }
-
-    /**
-     * Set the name of the file containing this level's map.
-     *
-     * @param fileName
-     *            Map to be used.
-     * @return Level corresponding to the given map.
-     */
-    public Launcher withMapFile(String fileName) {
-        levelMap = fileName;
-        return this;
-    }
+    // Alex : refactored removed withMapFile (it wasn't used)
 
     /**
      * Creates a new game using the level from {@link #makeLevel()}.
      *
-     * @return a new Game.
      */
-    public Game makeGame() {
+    public void makeGame() {// Alex : refactored removed return value (it wasn't used)
         GameFactory gf = getGameFactory();
         Level level = makeLevel();
         game = gf.createSinglePlayerGame(level, loadPointCalculator());
-        return game;
     }
 
     private PointCalculator loadPointCalculator() {
@@ -79,7 +65,7 @@ public class Launcher {
     }
 
     /**
-     * Creates a new level. By default this method will use the map parser to
+     * Creates a new level. By default, this method will use the map parser to
      * parse the default board stored in the <code>board.txt</code> resource.
      *
      * @return A new level.
