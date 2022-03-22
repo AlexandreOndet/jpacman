@@ -24,6 +24,11 @@ public class Player extends Unit {
     private int lives;
 
     /**
+     * If this player just died.
+     */
+    private boolean justDied=false;
+
+    /**
      * The animations for every direction.
      */
     private final Map<Direction, Sprite> sprites;
@@ -63,17 +68,27 @@ public class Player extends Unit {
         return lives != 0;
     }
 
+    public boolean isJustDied() {
+        return justDied;
+    }
+
+    public void resetJustDied() {
+        this.justDied = false;
+    }
+
+
     public int getLives() {
         return lives;
     }
 
     public void removeLife() {
         this.lives--;
-        occupy(getOriginalPos());
+        this.justDied=true;
         if(this.lives <= 0){
             setAlive(false);
         }
         else {
+            occupy(getOriginalPos());
             setAlive(true);
         }
     }

@@ -47,11 +47,6 @@ public class PacManUI extends JFrame {
     private final ScorePanel scorePanel;
 
     /**
-     * The panel displaying the player lives.
-     */
-    private final LivesPanel livesPanel;
-
-    /**
      * The panel displaying the game.
      */
     private final BoardPanel boardPanel;
@@ -73,7 +68,7 @@ public class PacManUI extends JFrame {
     /** François : refactored assert game, buttons and keyMappings to if statement */
     public PacManUI(final Game game, final Map<String, Action> buttons,
                     final Map<Integer, Action> keyMappings,
-                    ScoreFormatter scoreFormatter, LivesPanel.LivesFormatter livesFormatter) {
+                    ScoreFormatter scoreFormatter) {
         super("JPacman");
         if( game == null){
             throw new IllegalArgumentException("game is NULL");
@@ -95,11 +90,6 @@ public class PacManUI extends JFrame {
         scorePanel = new ScorePanel(game.getPlayers());
         if (scoreFormatter != null) {
             scorePanel.setScoreFormatter(scoreFormatter);
-        }
-
-        livesPanel = new LivesPanel(game.getPlayers());
-        if (livesFormatter != null) {
-            livesPanel.setLivesFormatter(livesFormatter);
         }
 
         boardPanel = new BoardPanel(game);

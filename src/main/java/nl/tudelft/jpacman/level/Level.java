@@ -109,6 +109,7 @@ public class Level {
         this.npcs = new HashMap<>();
         for (Ghost ghost : ghosts) {
             npcs.put(ghost, null);
+            ghost.setOriginalPos(ghost.getSquare());
         }
         this.startSquares = startPositions;
         this.startSquareIndex = 0;
@@ -282,6 +283,14 @@ public class Level {
      * Updates the observers about the state of this level.
      */
     private void updateObservers() {
+        for (Player player : players) {// this loop is here to reset the position of the ghosts is someone dies
+            if (player.isJustDied()) {
+                for (final Ghost npc : npcs.keySet()) {
+                    npc.resetPos();
+                }
+                player.resetJustDied();
+            }
+        }
         if (!isAnyPlayerAlive()) {
             for (LevelObserver observer : observers) {
                 observer.levelLost();
@@ -303,6 +312,7 @@ public class Level {
      */
     public boolean isAnyPlayerAlive() {
         for (Player player : players) {
+
             if (player.isAlive()) {
                 return true;
             }
